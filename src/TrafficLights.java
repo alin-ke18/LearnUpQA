@@ -1,62 +1,68 @@
-
+import java.util.Arrays;
 
 public class TrafficLights {
-    //public static int cnt = 0;
-    public static int numberOfGetOut (int[] speed)  {
-        int cnt = 0;
-        for (int i : speed ) {
-            if (i > 0) {
-                cnt ++;
-            }
-        }
-        return cnt;
-    }
-    public static int[] toKnowSpeedOut (int[] speeds) {
-        int cnt = 0;
-        for (int speed : speeds ) {
-            if (speed > 0) {
-                cnt ++;
-            }
-        }
-//        new int[cnt] = numberOfGetOut(toKnowSpeedOut(int[]));
-//        int[] cnt2 = numberOfGetOut(cnt[]);
-//        numberOfGetOut();
-        int[] rest = new int[cnt];
-        int i = 0;
-        for (int speed : speeds) {
-            if (speed > 0) {
-                rest[i] = speed;
-                i++;
-            }
-        }
-//        System.out.println(Arrays.toString((rest)));
+    private static boolean isGreenLight;
 
-
-//        for (int v : rest)
-//            System.out.println(v);
-        return rest;
+    public static void setIsGreenLight(boolean isGreenLight) {
+        TrafficLights.isGreenLight = isGreenLight;
     }
 
-    public static int[] toKnowStayIn (int[] speeds) {
-        int cnt = 0;
-        for (int speed : speeds) {
-            if (speed == 0) {
-                cnt++;
-            }
-        }
-        int[] rest = new int[cnt];
-        int i = 0;
-        for (int speed : speeds) {
-            if (speed == 0) {
-                rest[i] = speed;
-                i++;
-            }
-        }
-//        System.out.println(Arrays.toString((rest)));
-
-
-//        for (int v : rest)
-//            System.out.println(v);
-        return rest;
+    public static void getIsGreenLight() {
+        if (isGreenLight) {
+            System.out.println("Светофор зеленый!");
+        } else
+            System.out.println("Светофор красный!");
     }
+
+    public static int numberOfGetOut(int[] speed) {
+        if (isGreenLight) {
+            System.out.println("Количество выбывших игроков: 0");
+            return 0;
+        } else {
+            int cnt = 0;
+
+            for (int i : speed) {
+                if (i > 0) {
+                    cnt++;
+                }
+            }
+            System.out.println("Количество выбывших игроков: " + cnt);
+            return cnt;
+        }
+    }
+
+    public static int[] toKnowSpeedOut(int[] speeds) {
+        if (isGreenLight) {
+            System.out.println("Нет выбывших игроков.");
+            return new int[]{0};
+        } else {
+            int cnt = 0;
+            for (int speed : speeds) {
+                if (speed > 0) {
+                    cnt++;
+                }
+            }
+            int[] rest = new int[cnt];
+            int i = 0;
+            for (int speed : speeds) {
+                if (speed > 0) {
+                    rest[i] = speed;
+                    i++;
+                }
+            }
+            System.out.println("Игроки выбыли со скоростью: " + Arrays.toString(rest));
+            return rest;
+        }
+    }
+
+    public static int[] toKnowStayIn(int[] speeds) {
+        if (isGreenLight) {
+            System.out.println("Скорости игроков: " + Arrays.toString(speeds));
+            return null;
+        }
+        else {
+        System.out.println("Скорости невыбывающих 0");
+                }
+        return new int[]{0};
+            }
 }
